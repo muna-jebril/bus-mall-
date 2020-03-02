@@ -26,21 +26,7 @@ var centerImage=document.querySelector('#centerImage');
 
 var imageSection = document.querySelector('#imagesSection')
 
-// leftImage.src = `imgs/${names[0]}`;
-// // leftImage.alt = names[0];
-// leftImage.title = names[0];
-// console.log (names[0]);
 
-// centerImage.src = `imgs/${names[1]}`;
-// centerImage.alt = names[1];
-// centerImage.title = names[1];
-// console.log (names[1]);
-
-// rightImage.setAttribute('src',`imgs/${names[1]}.jpg`);
-// rightImage.setAttribute('alt',names[1]);
-// rightImage.setAttribute('title',names[1]);
-
-//(3_1) create constructor function for the goats
 function Think(name) {
   this.name = name;
   this.clicks = 0;
@@ -50,23 +36,21 @@ function Think(name) {
 }
 Think.all =[];
 
-//(3_2) instantiate objects for all the goats one shot
 for(var i =0; i<names.length; i++) {
   new Think(names[i]);
 }
 
-//(4) render 2 random images
 var leftimg, rightimg, centerimg
 function render () {
-   leftimg = Think.all[randomNumber(0,Think.all.length-1)];
-  console.log(leftimg);
-   rightimg = Think.all[randomNumber(0,Think.all.length-1)];
-  console.log(rightimg);
-  centerimg = Think.all[randomNumber(0,Think.all.length-1)];
-  console.log(centerimg);
 
+   leftimg = Think.all[randomNumber(0,Think.all.length-1)];
+   rightimg = Think.all[randomNumber(0,Think.all.length-1)];
+  centerimg = Think.all[randomNumber(0,Think.all.length-1)];
+while((leftimg ===centerimg) || (leftimg === rightimg) ||(centerimg === rightimg))
+{
+render();
+}
   leftImage.setAttribute('src',leftimg.imagePath);
-  console.log(leftImage.src,"ggg");
   leftImage.setAttribute('alt',leftimg.name);
   leftImage.setAttribute('title',leftimg.name);
   rightImage.setAttribute('src',rightimg.imagePath);
@@ -78,16 +62,19 @@ function render () {
 }
 render();
 
-//(5) add the event listener to render new images
 imageSection.addEventListener('click',handleClickOnimg);
 var totalClicks =0;
 function handleClickOnimg(event) {
-while(totalClicks <25 ) {
-var x;
-console.log(x)
-      switch (  x=( leftImage.src !== rightimg.src !==centerimg.src)){
-case 1 :
-    {if(event.target.id !== 'imagesSection') {
+if(totalClicks <25 ) {
+  // while(leftimg === centerimg || leftimg === rightimg || rightimg === centerimg || rightimg === leftimg)  
+
+  // {
+
+  //   render();
+  // }
+  
+  
+    if(event.target.id !== 'imagesSection') {
       if(event.target.id === 'leftImage') {
         leftimg.clicks++;
       } else if(event.target.id === 'rightImage') {
@@ -100,17 +87,14 @@ case 1 :
       leftimg.views++;
       rightimg.views++;}
       render();
-    }
-  break;
-  case 0:
-      render();
-      break;}
-     {
-    console.log('more than 5 clicks');
+      console.log(totalClicks);
+    }else
+  {
+    console.log('more than 25 clicks');
     imageSection.removeEventListener('click',handleClickOnimg);
     render2();
-  }
-}}
+  }}
+
 
 function render2() {
   var ulE1 = document.getElementById('summary');
