@@ -75,6 +75,15 @@ function resluts ()
     
   }
 }
+var Prev=[];
+function check(){
+  while((leftimg === centerimg) || (leftimg === rightimg) ||(centerimg === rightimg)  )
+{
+render();
+console.log("check funaction");
+
+}
+}
 
 var leftimg, rightimg, centerimg
 function render() {
@@ -90,6 +99,31 @@ function render() {
    
     render();
   }
+  while (Prev.includes(leftimg)){
+    console.log("it`s agine left")
+    leftimg = Think.all[randomNumber(0,Think.all.length-1)];
+    check();
+    }
+  
+  
+  
+  while (Prev.includes(rightimg)){
+    rightimg = Think.all[randomNumber(0,Think.all.length-1)];
+  console.log("it`s agine right");
+  check();
+  }
+  while (Prev.includes(centerimg)){
+    centerimg = Think.all[randomNumber(0,Think.all.length-1)];
+    console.log("it`s agine")
+  check();
+  }
+  Prev.push (leftimg);
+  Prev.push (rightimg);
+  Prev.push (centerimg);
+  while (Prev.length >3){
+    Prev.shift();
+  }
+  
   leftImage.setAttribute('src', leftimg.imagePath);
   leftImage.setAttribute('alt', (leftimg.name.split(".",1)));
   leftImage.setAttribute('title', (leftimg.name.split(".",1)));
@@ -148,12 +182,12 @@ function handleClickOnimg(event) {
 }
 
 function render2() {
-  // var ulE1 = document.getElementById('summary');
-  // for (var i = 0; i < Think.all.length; i++) {
-  //   var liE1 = document.createElement('li');
-  //   liE1.textContent = `${Think.all[i].name} has ${Think.all[i].clicks} clicks and ${Think.all[i].views} views`;
-  //   ulE1.appendChild(liE1);
-  // }
+  var ulE1 = document.getElementById('summary');
+  for (var i = 0; i < Think.all.length; i++) {
+    var liE1 = document.createElement('li');
+    liE1.textContent = `${Think.all[i].name} has ${Think.all[i].clicks} clicks and ${Think.all[i].views} views`;
+    ulE1.appendChild(liE1);
+  
   
  
   var ctx = document.getElementById('myChart').getContext('2d');
@@ -197,7 +231,7 @@ var myChart = new Chart (ctx,{
   }
 });
 }
-
+}
 
 
 function randomNumber(min, max) {
