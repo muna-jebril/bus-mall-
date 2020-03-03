@@ -24,7 +24,8 @@ var leftImage = document.querySelector('#leftImage');
 var rightImage = document.querySelector('#rightImage');
 var centerImage=document.querySelector('#centerImage');
 
-var imageSection = document.querySelector('#imagesSection')
+var imageSection = document.querySelector('#imagesSection');
+
 
 
 function Think(name) {
@@ -40,16 +41,54 @@ for(var i =0; i<names.length; i++) {
   new Think(names[i]);
 }
 
-var leftimg, rightimg, centerimg
+var leftimg, rightimg, centerimg;
+var Prev=[];
+function check(){
+  while((leftimg === centerimg) || (leftimg === rightimg) ||(centerimg === rightimg)  )
+{
+render();
+console.log("check funaction");
+
+}
+}
+
 function render () {
 
    leftimg = Think.all[randomNumber(0,Think.all.length-1)];
    rightimg = Think.all[randomNumber(0,Think.all.length-1)];
   centerimg = Think.all[randomNumber(0,Think.all.length-1)];
-while((leftimg ===centerimg) || (leftimg === rightimg) ||(centerimg === rightimg))
+while((leftimg === centerimg) || (leftimg === rightimg) ||(centerimg === rightimg)  )
 {
 render();
+
 }
+while (Prev.includes(leftimg)){
+  console.log("it`s agine left")
+  leftimg = Think.all[randomNumber(0,Think.all.length-1)];
+  check();
+  }
+
+
+
+while (Prev.includes(rightimg)){
+  rightimg = Think.all[randomNumber(0,Think.all.length-1)];
+console.log("it`s agine right");
+check();
+}
+while (Prev.includes(centerimg)){
+  centerimg = Think.all[randomNumber(0,Think.all.length-1)];
+  console.log("it`s agine")
+check();
+}
+Prev.push (leftimg);
+Prev.push (rightimg);
+Prev.push (centerimg);
+while (Prev.length >3){
+  Prev.shift();
+}
+
+
+
   leftImage.setAttribute('src',leftimg.imagePath);
   leftImage.setAttribute('alt',leftimg.name);
   leftImage.setAttribute('title',leftimg.name);
@@ -66,12 +105,7 @@ imageSection.addEventListener('click',handleClickOnimg);
 var totalClicks =0;
 function handleClickOnimg(event) {
 if(totalClicks <25 ) {
-  // while(leftimg === centerimg || leftimg === rightimg || rightimg === centerimg || rightimg === leftimg)  
-
-  // {
-
-  //   render();
-  // }
+  
   
   
     if(event.target.id !== 'imagesSection') {
