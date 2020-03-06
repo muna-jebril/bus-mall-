@@ -49,12 +49,25 @@ Think.all = [];
 function saveValues (){
   localStorage.setItem("Click",totalClicks);
   localStorage.setItem("views",totalView);
-  
+  var imgString = JSON.stringify(Think.all);
+
+  localStorage.setItem('ALL' , imgString);
+
+
 
 }
-function   getValues(){
+
+
+function   getValues(){ 
   localStorage.getItem("clicks");
   localStorage.getItem("views");
+  var imgString=localStorage.getItem("imgs");
+  if(imgString){
+    Think.all=JSON.parse(imgString);
+    render();
+  }
+
+
 
 
 }
@@ -76,14 +89,24 @@ function resluts ()
   }
 }
 var Prev=[];
-function check(){
-  while((leftimg === centerimg) || (leftimg === rightimg) ||(centerimg === rightimg)  )
-{
-render();
-console.log("check funaction");
+// function check(){
+//   while((leftimg === centerimg) || (leftimg === rightimg) ||(centerimg === rightimg)  )
+// {
+// render();
 
-}
-}
+
+
+
+
+
+
+
+
+
+// console.log("check funaction");
+
+// }
+// }
 
 var leftimg, rightimg, centerimg
 function render() {
@@ -99,23 +122,39 @@ function render() {
    
     render();
   }
+  console.log(Prev.includes(leftimg))
+
   while (Prev.includes(leftimg)){
     console.log("it`s agine left")
     leftimg = Think.all[randomNumber(0,Think.all.length-1)];
-    check();
+      while((leftimg === centerimg) || (leftimg === rightimg) ||(centerimg === rightimg)  )
+{
+  render();
+}
+    // check();
     }
   
   
-  
+  console.log(Prev.includes(rightimg))
   while (Prev.includes(rightimg)){
     rightimg = Think.all[randomNumber(0,Think.all.length-1)];
   console.log("it`s agine right");
-  check();
+  while((leftimg === centerimg) || (leftimg === rightimg) ||(centerimg === rightimg)  )
+  {
+    render();
   }
+  // check();
+  }
+  console.log(Prev.includes(centerimg))
+
   while (Prev.includes(centerimg)){
     centerimg = Think.all[randomNumber(0,Think.all.length-1)];
-    console.log("it`s agine")
-  check();
+    console.log("it`s center agine")
+    while((leftimg === centerimg) || (leftimg === rightimg) ||(centerimg === rightimg)  )
+    {
+      render();
+    }
+  // check();
   }
   Prev.push (leftimg);
   Prev.push (rightimg);
