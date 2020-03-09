@@ -211,7 +211,7 @@ function render2() {
   var ulE1 = document.getElementById('summary');
   for (var i = 0; i < Think.all.length; i++) {
     var liE1 = document.createElement('li');
-    liE1.textContent = `${Think.all[i].name} has ${Think.all[i].clicks} clicks and ${Think.all[i].views} views`;
+    liE1.textContent = `${(Think.all[i].name.split(".",1))} has ${Think.all[i].clicks} clicks and ${Think.all[i].views} views`;
     ulE1.appendChild(liE1);
 
 
